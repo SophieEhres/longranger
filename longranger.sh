@@ -18,7 +18,7 @@ for i in $names; do
         for j in $files; do
                 echo "file is ${j}";
                 mv $j fastq/$i;
-                echo "moving ${j} to ${i};
+                echo "moving ${j} to ${i}";
 
         done
 
