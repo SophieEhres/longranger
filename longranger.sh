@@ -7,7 +7,7 @@
 
 directory=$1
 
-names=$( ls *.fastq.gz | grep -e "F0" | cut -d'_' -f1 | uniq)
+names=$( ls $directory | grep -e "bam" | cut -d'_' -f1 | uniq)
 
 mkdir fastq
 
