@@ -5,6 +5,7 @@
 # Needs to be started from a directory containing fastqs demultiplexed with bcl2fastq
 ###########################
 
+directory=$1
 
 names=$( ls *.fastq.gz | grep -e "F0" | cut -d'_' -f1 | uniq)
 
@@ -29,7 +30,7 @@ mkdir bash_files
 
 directories=$(ls fastq_files)
 home=$(pwd)
-genome=${MUGQIC_INSTALL_HOME}/genomes/species/Homo_sapiens.hg19/genome/10xGenomics/refdata-hg19-2.1.0/
+genome=$(ls ${MUGQIC_INSTALL_HOME}/genomes/species/ | grep -e $2)
 bash=bash_files
 fastq=${home}/fastq_files
 
@@ -42,7 +43,7 @@ for i in $directories; do
         module load mugqic/longranger
         longranger wgs --id $i --fastqs ${fastq}/${i} --vcmode freebayes --reference $genome --localcores 12 --localmem 80">${bash}/${i}_longranger.sh;
 
-        sbatch -A $RAP_ID --mail-type=END,FAIL --mail-user=$JOB_MAIL -J ${i}_longranger --time=24:00:0 --mem=80G -N 1 -n 12 ${bash}/${i}_longranger.sh;
+        sbatch -A $RAP_ID --mail-type=END,FAIL --mail-user=$JOB_MAIL -J ${i}_longranger --time=72:00:0 --mem=80G -N 1 -n 12 ${bash}/${i}_longranger.sh;
 
         sleep 1;
 done
