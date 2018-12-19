@@ -30,7 +30,8 @@ mkdir bash_files
 
 directories=$(ls fastq_files)
 home=$(pwd)
-genome=$(ls ${MUGQIC_INSTALL_HOME}/genomes/species/ | grep -e $2)
+genome_dir=$MUGQIC_INSTALL_HOME/genomes/species
+genome=echo "$genome_dir/$(ls ${MUGQIC_INSTALL_HOME}/genomes/species/ | grep -e $2)"
 bash=bash_files
 fastq=${home}/fastq_files
 
